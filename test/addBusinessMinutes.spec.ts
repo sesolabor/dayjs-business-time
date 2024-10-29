@@ -18,6 +18,26 @@ describe('Add Business Minutes', () => {
     ];
   });
 
+  it('should handle `null` arguments', () => {
+    const date = dayjs('2021-02-08 09:00:00');
+    const expected = dayjs('2021-02-08 09:00:00');
+
+    const newDate = date.addBusinessMinutes(null);
+
+    expect(newDate).toBeDefined();
+    expect(newDate).toStrictEqual(expected);
+  });
+
+  it('should handle negative arguments', () => {
+    const date = dayjs('2021-02-08 09:15:00');
+    const expected = dayjs('2021-02-08 09:00:00');
+
+    const newDate = date.addBusinessMinutes(-15);
+
+    expect(newDate).toBeDefined();
+    expect(newDate).toStrictEqual(expected);
+  });
+
   it('should add 15 business minutes on a date', () => {
     const date = dayjs('2021-02-08 09:00:00');
     const expected = dayjs('2021-02-08 09:15:00');

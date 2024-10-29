@@ -10,6 +10,27 @@ describe('Add Business Days', () => {
     dayjs.setHolidays(holidays);
   });
 
+  it('should handle `null` arguments', () => {
+    const date = dayjs('2021-02-11');
+    const expected = dayjs('2021-02-11');
+
+    const newDate = date.addBusinessDays(null);
+
+    expect(newDate).toBeDefined();
+    expect(newDate).toStrictEqual(expected);
+  });
+
+  // Passing a negative argument previously caused the process to hang indefinitely
+  it('should handle negative arguments', () => {
+    const date = dayjs('2021-02-11');
+    const expected = dayjs('2021-02-08');
+
+    const newDate = date.addBusinessDays(-3);
+
+    expect(newDate).toBeDefined();
+    expect(newDate).toStrictEqual(expected);
+  });
+
   it('should add 3 business day on a date', () => {
     const date = dayjs('2021-02-08');
     const expected = dayjs('2021-02-11');

@@ -89,10 +89,26 @@ const businessTime = (
     let daysToIterate = numberOfDays;
     let day = date.clone();
 
+    // Account for negative arguments (without this logic the process will hang indefinitely)
+    let relativeAction = action;
+    if (numberOfDays < 0) {
+      if (action === 'add') {
+        relativeAction = 'subtract';
+      }
+
+      if (action === 'subtract') {
+        relativeAction = 'add';
+      }
+    }
+
     while (daysToIterate) {
-      day = day[action](1, 'day');
+      day = day[relativeAction](1, 'day');
       if (day.isBusinessDay()) {
-        daysToIterate = daysToIterate - 1;
+        if (numberOfDays < 0) {
+          daysToIterate = daysToIterate + 1;
+        } else {
+          daysToIterate = daysToIterate - 1;
+        }
       }
     }
 
@@ -374,7 +390,7 @@ const businessTime = (
           break;
         } else if (from.isSameOrAfter(start) && from.isSameOrBefore(end)) {
           diff += end.diff(from, 'minutes');
-        } 
+        }
       }
 
       return diff ? diff * multiplier : 0;

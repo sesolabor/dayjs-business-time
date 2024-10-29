@@ -1,7 +1,7 @@
-import { PluginFunc } from 'dayjs'
+import { PluginFunc } from 'dayjs';
 
-declare const plugin: PluginFunc
-export = plugin
+declare const plugin: PluginFunc;
+export = plugin;
 
 declare module 'dayjs' {
   export function getHolidays(): string[];
@@ -9,28 +9,39 @@ declare module 'dayjs' {
   export function getBusinessTime(): BusinessHoursMap;
   export function setBusinessTime(businessHours: BusinessHoursMap): void;
 
-  export type BusinessUnitType = 'minute' | 'minutes' | 'hour' | 'hours' | 'day' | 'days';
+  export type BusinessUnitType =
+    | 'minute'
+    | 'minutes'
+    | 'hour'
+    | 'hours'
+    | 'day'
+    | 'days';
+
   export interface Dayjs {
-    isBusinessDay(): boolean,
-    isHoliday(): boolean,
-    nextBusinessDay(): Dayjs,
-    lastBusinessDay(): Dayjs,
-    isBusinessTime(): boolean,
-    nextBusinessTime(): Dayjs,
-    lastBusinessTime(): Dayjs,
-    addBusinessDays(numberOfDays: number): Dayjs,
-    subtractBusinessDays(numberOfDays: number): Dayjs,
-    addBusinessHours(numberOfHours: number): Dayjs,
-    addBusinessMinutes(numberOfMinutes: number): Dayjs,
-    addBusinessTime(timeToAdd: number, businessUnit: BusinessUnitType): Dayjs,
+    isBusinessDay(): boolean;
+    isHoliday(): boolean;
+    nextBusinessDay(): Dayjs;
+    lastBusinessDay(): Dayjs;
+    isBusinessTime(): boolean;
+    nextBusinessTime(): Dayjs;
+    lastBusinessTime(): Dayjs;
+    addBusinessDays(numberOfDays: number): Dayjs;
+    subtractBusinessDays(numberOfDays: number): Dayjs;
+    addBusinessHours(numberOfHours: number): Dayjs;
+    addBusinessMinutes(numberOfMinutes: number): Dayjs;
+    addBusinessTime(timeToAdd: number, businessUnit: BusinessUnitType): Dayjs;
     subtractBusinessMinutes(numberOfMinutes: number): Dayjs;
-    subtractBusinessHours(numberOfHours: number): Dayjs,
-    subtractBusinessTime(timeToSubtract: number, businessUnit: BusinessUnitType): Dayjs,
-    businessMinutesDiff(comparator: Dayjs): number
-    businessHoursDiff(comparator: Dayjs): number
-    businessDaysDiff(comparator: Dayjs): number
-    businessTimeDiff(comparator: Dayjs, businessUnit: BusinessUnitType): number,
+    subtractBusinessHours(numberOfHours: number): Dayjs;
+    subtractBusinessTime(
+      timeToSubtract: number,
+      businessUnit: BusinessUnitType,
+    ): Dayjs;
+    businessMinutesDiff(comparator: Dayjs): number;
+    businessHoursDiff(comparator: Dayjs): number;
+    businessDaysDiff(comparator: Dayjs): number;
+    businessTimeDiff(comparator: Dayjs, businessUnit: BusinessUnitType): number;
   }
+
   export interface BusinessHoursMap {
     sunday: BusinessHours[] | null;
     monday: BusinessHours[] | null;
@@ -42,8 +53,8 @@ declare module 'dayjs' {
   }
 
   export interface BusinessHours {
-    start: string,
-    end: string
+    start: string;
+    end: string;
   }
 
   export interface BusinessTimeSegment {
@@ -52,7 +63,7 @@ declare module 'dayjs' {
   }
 
   export interface ILocale {
-    holidays: string[],
-    businessHours: BusinessHoursMap,
+    holidays: string[];
+    businessHours: BusinessHoursMap;
   }
 }
